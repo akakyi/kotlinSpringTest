@@ -17,7 +17,9 @@ import org.thymeleaf.context.Context
 import org.thymeleaf.templatemode.TemplateMode
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import java.io.FileOutputStream
+import java.lang.RuntimeException
 import java.util.Base64
+import kotlin.random.Random
 
 
 @RestController
@@ -31,6 +33,7 @@ class TestEndPoint(
 
     @PostMapping("/test")
     fun test(@RequestBody test: FinIssueCreateHttpRequest) {
+        throw RuntimeException("test exc")
 //        backOfficeCreateFinancialIssueUseCase.execute(
 //            CreateFineInDto(
 //                privateOfficeId = 801,
@@ -57,10 +60,14 @@ class TestEndPoint(
 
     @GetMapping
     fun testGet() {
-        val test = huiRepository.test()
-        test.forEach {
-            println("id: ${it.id}, a: ${it.a}")
-        }
+        Thread.sleep(Random.nextLong() % 10000)
+        println("test")
+//        throw RuntimeException("test exc")
+
+//        val test = huiRepository.test()
+//        test.forEach {
+//            println("id: ${it.id}, a: ${it.a}")
+//        }
 
 //        val entity = redisTestRepository.findById("hui")
 //        val entity = keyValueTestRepository.findById("hui")
